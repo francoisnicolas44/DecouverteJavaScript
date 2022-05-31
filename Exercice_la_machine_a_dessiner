@@ -1,0 +1,133 @@
+// Pour test sur https://editor.p5js.org/
+
+//////////////////////////
+// La machine à dessiner//
+//////////////////////////////////
+//31 mai 2022 - François NICOLAS//
+//////////////////////////////////
+
+///////////////////////////////////
+//DESCRIPTION DES FONCTIONNALITES//
+///////////////////////////////////
+// Choix de la forme d'une brosse: rond (par défaut) ou carré en appuyant sur le boutton "Rond" ou le bouton "Carré"
+// Choix de la taille de la brosse (10 par défaut) en appuyant sur le bouton "Taille+" pour l'augmenter ou le bouton "Taille-" pour la diminuer
+// choix de la couleur en appuyant sur le bouton "Noir", "Blanc", "Gris", "Rouge", "Vert" ou "Bleu"
+
+//////////////////////
+//VARIABLES GLOBALES//
+//////////////////////
+//Forme de la brosse (défaut: ronde)
+  let forme="rond";
+//Taille de la brosse (défaut: 10 pixels)
+  let taille=10;
+
+function setup() {
+  //Zone de 400x400 pixel
+  createCanvas(400, 400);
+
+  //choix de la forme de la brosse
+  //brosse ronde
+  var btn_rond=createButton("Rond");
+  btn_rond.mousePressed(brosseRonde);
+  //brosse carrée
+  var btn_carre=createButton("Carré");
+  btn_carre.mousePressed(brosseCarree);
+  
+  //Bouton d'augmentation de la taille de la brosse
+  var btn_plus=createButton("Taille+");
+  btn_plus.mousePressed(AugmenterTaille);
+  //diminution de la taille de la brosse
+  var btn_moins=createButton("Taille-");
+  btn_moins.mousePressed(DiminuerTaille);
+  
+  //par défaut, la brosse dessine en noir
+  fill(0,0,0);
+  //Boutons de choix de la couleur
+  var btn_noir=createButton("Noir");
+  btn_noir.mousePressed(EnNoir);
+  var btn_blanc=createButton("Blanc");
+  btn_blanc.mousePressed(EnBlanc);
+  var btn_gris=createButton("Gris");
+  btn_gris.mousePressed(EnGris);
+  var btn_rouge=createButton("Rouge");
+  btn_rouge.mousePressed(EnRouge);
+  var btn_vert=createButton("Vert");
+  btn_vert.mousePressed(EnVert);
+  var btn_bleu=createButton("Bleu");
+  btn_bleu.mousePressed(EnBleu);
+  
+  //bouton de sauvegarde
+  var btn_sauver=createButton("Sauver");
+  btn_sauver.mousePressed(sauvegarde);
+}
+
+function draw() {
+  noStroke();
+  if(mouseY<390){
+    //si le pointeur n'est pas dans la zone des boutons, on peut dessiner
+    if(mouseIsPressed){
+      //si on appuie sur le bouton on dessine
+      if(forme=="rond"){
+        //si la brosse est ronde on dessine un cercle
+        circle(mouseX, mouseY, taille)
+      }
+      if(forme=="carre"){
+        //si la brosse est carrée on dessine un carré
+        square(mouseX, mouseY, taille)
+      }
+    }
+  }
+}
+
+function sauvegarde(){
+  //Sauvegarder le dessin
+  saveCanvas("test.png");
+}
+function brosseRonde(){
+  //Dessiner avec une brosse de forme ronde
+  forme="rond";
+}
+function brosseCarree(){
+  //Dessiner avec une brosse de forme carrée
+  forme="carre";
+}
+function AugmenterTaille(){
+  //Augmenter la taille de la brosse (max=100) par pas de 10 pixels
+  if(taille<90){
+    taille=taille+10
+  }else{
+    taille=100
+  };
+}
+function DiminuerTaille(){
+  //Augmenter la taille de la brosse (min=1) par pas de 10 pixels
+  if(taille>11){
+    taille=taille-10
+  }else{
+    taille=1
+  };
+}
+function EnNoir(){
+  //dessiner en noir
+  fill(0,0,0);
+}
+function EnBlanc(){
+  //dessiner en blanc
+  fill(255,255,255);
+}
+function EnGris(){
+  //dessiner en gris
+  fill(120,120,120);
+}
+function EnRouge(){
+  //dessiner en rouge
+  fill(255,0,0);
+}
+function EnVert(){
+  //dessiner en vert
+  fill(0,255,0);
+}
+function EnBleu(){
+  //dessiner en bleu
+  fill(0,0,255);
+}
